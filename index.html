@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Grocery List</title>
+  <!-- <documentation at http://demos.jquerymobile.com/1.4.1/ > -->
+
+  <link href='https://fonts.googleapis.com/css?family=Nova Flat' rel='stylesheet'>
+
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script src="index.js"></script>
+  <link rel="stylesheet" type="text/css" href="index.css">
+
+</head>
+
+<body>
+     <!-- Start of  page ------------------------------------------------------------------>
+  <div data-role="page" id="home">
+
+    <!--   page header -->
+    <div data-role="header" data-theme='a'>
+      <h1>Grocery List</h1>
+      <div data-role="navbar" data-theme='b' id="nav_bar">
+        <ul>
+        <li><a href="#home" class='active-page'>Home</a></li>
+        <li><a href="#Edit">Add an Item</a></li>
+        <li><a href="#ViewList">View List</a></li>
+        <li><a href="#ViewDetail">View Item Detail</a></li>
+        </ul>
+      </div><!-- /navbar -->
+      <img class="left" id="image1" src="https://depositphotos.com/200042750/stock-illustration-set-cute-grocery-food-doodle.html" alt="grocery list clipart" class="left" >
+    </div>
+
+    <!--   page content -->
+    <div data-role="content" data-theme='b'>
+      <div class="newFont">
+        <h2> An easy way to create a dynamic and organized grocery list!</h2>
+      </div>
+    </div>
+
+    <!--  page footer -->
+    <div data-role="footer" data-theme='b'>
+      <h1>Copyright 2021 Katie Pham and Mijeong Seo for PROG 209</h1>
+    </div>
+  </div>
+  <!-- End of  page ------------------------------------------------------------------>
+</body>
+
+<body>
+    <div data-role="page" id="Edit">
+        <!--  page header -->
+        <div data-role="header" data-theme='a'>
+          <h1>Add an Item</h1>
+          <div data-role="navbar" data-theme='b' id="nav_bar">
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#Edit" class='active-page'>Add an Item</a></li>
+              <li><a href="#ViewList">View List</a></li>
+              <li><a href="#ViewDetail">View Item Detail</a></li>
+            </ul>
+          </div><!-- /navbar -->
+         
+        </div>
+    
+    
+    
+    
+        <!-- page content -->
+      
+        <div data-role="content" data-theme='c'>
+          <h2>Add a New Item</h2>
+          Item Name: <br />
+          <input type="text" value="" id="name" />
+          Quantity <br />
+          <input type="text" value="" id="quantity" />
+          <div class="ui-field-contain">
+            <label for="category">Select a Category</label>
+            <select name="category" id="category">
+              <option value="Household">Household</option>
+              <option value="Produce">Produce</option>
+              <option value="Frozen food">Frozen food</option>
+              <option value="Beverages">Beverages</option>
+              <option value="Dairy">Dairy</option>
+              <option value="Bakery">Bakery</option>
+              <option value="Meat">Meat</option>
+              <option value="Dry canned food">Dry canned food</option>
+              <option value="Snack">Snack</option>
+            </select>
+          </div>
+          Note: <br />
+          <input type="text" value="" id="note" />
+          
+        
+          <input type="button" value="Add" id="buttonAdd" data-inline="true" />
+        </div>
+    
+           
+        
+        <!--   page footer -->
+        <div data-role="footer" data-theme='b'>
+          <h1>Copyright 2021 by Katie Pham and Mijeong Seo for PROG 209</h1>
+        </div>
+      </div>
+      <!-- End of  page ------------------------------------------------------------------>
+</body>
