@@ -18,48 +18,54 @@
 
 <body>
      <!-- Start of  page ------------------------------------------------------------------>
-  <div data-role="page" id="home">
+  <div data-role="page" id="home" data-them='e'>
 
     <!--   page header -->
     <div data-role="header" data-theme='a'>
       <h1>Grocery List</h1>
-      <div data-role="navbar" data-theme='b' id="nav_bar">
+      <div data-role="navbar" data-theme='e' id="nav_bar">
         <ul>
-        <li><a href="#home" class='active-page'>Home</a></li>
-        <li><a href="#Edit">Add an Item</a></li>
-        <li><a href="#ViewList">View List</a></li>
-        <li><a href="#ViewDetail">View Item Detail</a></li>
+        <li><a href="#home" class='active-page'>HOME</a></li>
+        <li><a href="#Edit">NEW</a></li>
+        <li><a href="#ListAll">LIST</a></li>
+        <li><a href="javascript:alert('Please select the item from the list that you would like to view the details for, modify or delete.');">DETAIL</a></li>
         </ul>
       </div><!-- /navbar -->
-      <img class="left" id="image1" src="https://depositphotos.com/200042750/stock-illustration-set-cute-grocery-food-doodle.html" alt="grocery list clipart" class="left" >
     </div>
 
     <!--   page content -->
-    <div data-role="content" data-theme='b'>
+    <div data-role="content" data-theme='a'>
       <div class="newFont">
-        <h2> An easy way to create a dynamic and organized grocery list!</h2>
+        <table>
+          <tr>
+              <th><img id="image1" src="./images/grocery.jfif" alt="picture of grocery" class="left"></th>
+              <th>
+                <h3>Welcome to Grocery List!</h3>
+                <p> An easy way to create a dynamic and organized grocery list!</p>
+              </th>
+          </tr>
+        </table>
       </div>
     </div>
 
     <!--  page footer -->
-    <div data-role="footer" data-theme='b'>
+    <div data-role="footer" data-theme='a' class="footer">
       <h1>Copyright 2021 Katie Pham and Mijeong Seo for PROG 209</h1>
     </div>
   </div>
-  <!-- End of  page ------------------------------------------------------------------>
-</body>
 
-<body>
+  <!-- End of  page ------------------------------------------------------------------>
+
     <div data-role="page" id="Edit">
         <!--  page header -->
         <div data-role="header" data-theme='a'>
           <h1>Add an Item</h1>
           <div data-role="navbar" data-theme='b' id="nav_bar">
             <ul>
-              <li><a href="#home">Home</a></li>
-              <li><a href="#Edit" class='active-page'>Add an Item</a></li>
-              <li><a href="#ViewList">View List</a></li>
-              <li><a href="#ViewDetail">View Item Detail</a></li>
+              <li><a href="#home" >HOME</a></li>
+              <li><a href="#Edit" class='active-page'>NEW</a></li>
+              <li><a href="#ListAll">LIST</a></li>
+              <li><a href="javascript:alert('Please select the item from the list that you would like to view the details for, modify or delete.');">DETAIL</a></li>
             </ul>
           </div><!-- /navbar -->
          
@@ -71,11 +77,14 @@
         <!-- page content -->
       
         <div data-role="content" data-theme='c'>
-          <h2>Add a New Item</h2>
-          Item Name: <br />
-          <input type="text" value="" id="name" />
-          Quantity <br />
-          <input type="text" value="" id="quantity" />
+          <div class="ui-field-contain">
+            <label for="name">Item Name:</label>
+            <input type="text" value="" id="name" size="15" required maxlength = "15"/>
+          </div> 
+          <div class="ui-field-contain">
+            <label for="quantity">Quantity</label> 
+            <input type="text" value="" id="quantity" size="2" maxlength= "15" required/>
+          </div> 
           <div class="ui-field-contain">
             <label for="category">Select a Category</label>
             <select name="category" id="category">
@@ -90,19 +99,114 @@
               <option value="Snack">Snack</option>
             </select>
           </div>
-          Note: <br />
-          <input type="text" value="" id="note" />
+          <div class="ui-field-contain">
+            <label for="note">Note: </label> 
+            <textarea value="" id="note" size="50" required maxlength= "50"></textarea>
+          </div>
           
         
-          <input type="button" value="Add" id="buttonAdd" data-inline="true" />
+          <input type="button" value="Add" id="buttonAdd" data-inline="true" class="center"/>
+          <input type="button" value="Clear" id="buttonClear" data-inline="true" class="center"/>
         </div>
     
            
         
         <!--   page footer -->
-        <div data-role="footer" data-theme='b'>
+        <div data-role="footer" data-theme='a' class="footer">
           <h1>Copyright 2021 by Katie Pham and Mijeong Seo for PROG 209</h1>
         </div>
       </div>
       <!-- End of  page ------------------------------------------------------------------>
+
+
+      <div data-role="page" id="ListAll">
+        <!--   page header -->
+        <div data-role="header" data-theme='a'>
+          <h1>View the list of Grocery Item</h1>
+          <div data-role="navbar" data-theme='b' id="nav_bar">
+            <ul>
+              <li><a href="#home" >HOME</a></li>
+              <li><a href="#Edit">NEW</a></li>
+              <li><a href="#ListAll" class='active-page'>LIST</a></li>
+              <li><a href="javascript:alert('Please select the item from the list that you would like to view the details for, modify or delete.');">DETAIL</a></li>
+            </ul>
+          </div><!-- /navbar -->
+        </div>
+        <!--   page content -->
+        <div data-role="content" data-theme='e'>
+          <p> Here is the list: </p>
+          <div id="divGroceryList">
+            <ul>
+              <li><a href="#ViewDetail" >Egg</a></li>
+              <li><a href="#ViewDetail" >Apple</a></li>
+              <li><a href="#ViewDetail" >Dishwashing soap</a></li>
+              <li><a href="#ViewDetail" >toilet paper</a></li>
+              <li><a href="#ViewDetail" >bread</a></li>
+            </ul>
+          </div>
+          <input type="button" value="Sort By Category" id="buttonSortGenre" data-inline="true" class="center"/>
+          <input type="button" value="Sort By Item" id="buttonSortTitle" data-inline="true" class="center"/>
+        </div>
+      
+        <!--   page footer -->
+        <div data-role="footer" data-theme='a' class="footer">
+          <h1>Copyright 2021 by Katie Pham and Mijeong Seo for PROG 209</h1>
+        </div>
+      </div>
+      </div>
+      <!-- End of  page ------------------------------------------------------------------>
+
+      <div data-role="page" id="ViewDetail">
+        <!--   page header -->
+        <div data-role="header" data-theme='a'>
+          <h1>View a detail info, modify or delete the selected grocery item</h1>
+          <div data-role="navbar" data-theme='b' id="nav_bar">
+            <ul>
+              <li><a href="#home">HOME</a></li>
+              <li><a href="#Edit">NEW</a></li>
+              <li><a href="#ListAll">LIST</a></li>
+              <li><a href="#ViewDetail" class='active-page'>DETAIL</a></li>
+            </ul>
+          </div><!-- /navbar -->
+        </div>
+        <!--   page content -->
+        <div data-role="content" data-theme='c'>
+          <div class="ui-field-contain">
+            <label for="name" >Item Name:</label>
+            <input type="text" id="name" size="15" required maxlength = "15" value="egg"/>
+          </div> 
+          <div class="ui-field-contain">
+            <label for="quantity">Quantity</label> 
+            <input type="text" id="quantity" size="2" maxlength= "2" required value="1"/>
+          </div> 
+          <div class="ui-field-contain">
+            <label for="category">Select a Category</label>
+            <select name="category" id="category">
+              <option value="Household">Household</option>
+              <option value="Produce" selected>Produce</option>
+              <option value="Frozen food">Frozen food</option>
+              <option value="Beverages">Beverages</option>
+              <option value="Dairy">Dairy</option>
+              <option value="Bakery">Bakery</option>
+              <option value="Meat">Meat</option>
+              <option value="Dry canned food">Dry canned food</option>
+              <option value="Snack">Snack</option>
+            </select>
+          </div>
+          <div class="ui-field-contain">
+            <label for="note" >Note: </label> 
+            <textarea id="note" size="50" required maxlength= "50">organic cagefree brown eggs</textarea>
+          </div>
+          <input type="button" value="Save" id="buttonSave" data-inline="true" class="center"/>
+          <input type="button" value="Delete" id="buttonDelete" data-inline="true" class="center"/>
+        </div>
+    
+    
+        <!--   page footer -->
+        <div data-role="footer" data-theme='a' class="footer">
+          <h1>Copyright 2021 by Katie Pham and Mijeong Seo for PROG 209</h1>
+        </div>
+      </div>
+      </div>
+      <!-- End of  page ------------------------------------------------------------------>      
 </body>
