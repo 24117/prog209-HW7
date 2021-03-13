@@ -11,93 +11,89 @@ let GroceryItemObject = function (pName, pQuantity, pCategory, pNote) {
     this.Note = pNote;
 }
 
-document.addEventListener("DOMContentLoaded", function () {
 
-// login
-let userInputedPasscode = "";
-while(userInputedPasscode.trim() != PASSCODE) {
-    userInputedPasscode = prompt("Please enter your passcode");
-} 
-
-var slideIndex =1;
+groceryItemArray.push(new GroceryItemObject("egg", 1, "dairy", "cage-free brown organic egg"));
+groceryItemArray.push(new GroceryItemObject("apple", 15, "produce", "organic honey crispy"));
+groceryItemArray.push(new GroceryItemObject("dishwashing detergent", 1, "household", "cascade brand"));
+groceryItemArray.push(new GroceryItemObject("toilet paper", 1, "household", ""));
+groceryItemArray.push(new GroceryItemObject("sourdough bread", 3, "bakery", "with black olives"));
 
 
-carousel();
-
-
-function carousel(){
-    var i;
-    var x = document.getElementsByClassName("Home_Slides");
-    for(i = 0; i < x.length; i++)
-    {
-        x[i].style.display = "none";
-
-    }
-    slideIndex++;
-    if(slideIndex > x.length) {slideIndex =1}
-    x[slideIndex -1].style.display = "block";
-    setTimeout(carousel, 3000);
-}
-
-})
-
-// start by creating data so we don't have to type it in each time
-let groceryArray = [];
-
-// define a constructor to create movie objects
-let GroceryItem = function (pName, pQuantity, pCategory, pNote) {
-    this.Name = pName;
-    this.Quantity = pQuantity;
-    this.Category = pCategory;  
-    this.Note = pNote;
-}
 
 
 let selectedQuantity = "1";
 let selectedCategory = "household";
 
+
 document.addEventListener("DOMContentLoaded", function () {
+
+    // login
+    let userInputedPasscode = "";
+    while(userInputedPasscode.trim() != PASSCODE) {
+        userInputedPasscode = prompt("Please enter your passcode");
+    } 
+
+    var slideIndex =1;
+
+
+    carousel();
+
+
+    function carousel(){
+        var i;
+        var x = document.getElementsByClassName("Home_Slides");
+        for(i = 0; i < x.length; i++)
+        {
+            x[i].style.display = "none";
+
+        }
+        slideIndex++;
+        if(slideIndex > x.length) {slideIndex =1}
+        x[slideIndex -1].style.display = "block";
+        setTimeout(carousel, 3000);
+    }
+
 
     createList();
 
 // add button events ************************************************************************
     
     document.getElementById("buttonAdd").addEventListener("click", function () {
-        groceryArray.push(new GroceryItem(document.getElementById("name").value, 
+        groceryItemArray.push(new GroceryItemObject(document.getElementById("name").value, 
             selectedQuantity, selectedCategory, document.getElementById("note").value));
         document.location.href = "index.html#ListAll";
     });
     
     document.getElementById("buttonClear").addEventListener("click", function () {
         document.getElementById("name").value = "";
-        document.getElementById("quantity").value = "";
-        document.getElementById("category").value = "";
+        document.getElementById("quantity").selectedIndex = "0";
+        document.getElementById("category").selectedIndex = "0";
         document.getElementById("note").value = "";
     });
 
     $(document).bind("change", "#quantity", function (event, ui) {
-        selectedGenre = $('#quantity').val();
+        selectedQuantity = $('#quantity').val();
     });
 
     $(document).bind("change", "#category", function (event, ui) {
-        selectedGenre = $('#category').val();
+        selectedCategory = $('#category').val();
     });
 
-    document.getElementById("delete").addEventListener("click", function () {
-        deleteGrocery(document.getElementById("IDparmHere").innerHTML);
+    document.getElementById("buttonDelete").addEventListener("click", function () {
+        deleteGroceryItem(document.getElementById("IDparmHere").innerHTML);
         createList();  // recreate li list after removing one
         document.location.href = "index.html#ListAll";  // go back to movie list 
     });
 
 // 2 sort button event methods
     document.getElementById("buttonSortCategory").addEventListener("click", function () {
-        groceryArray.sort(dynamicSort("Category"));
+        groceryItemArray.sort(dynamicSort("Category"));
         createList();
         document.location.href = "index.html#ListAll";
     });
 
     document.getElementById("buttonSortItem").addEventListener("click", function () {
-        groceryArray.sort(dynamicSort("Item"));
+        groceryItemArray.sort(dynamicSort("Item"));
         createList();
         document.location.href = "index.html#ListAll";
     });
@@ -112,25 +108,24 @@ document.addEventListener("DOMContentLoaded", function () {
         createList();
     });
 
-    $(document).on("pagebeforeshow", "#ViewDetail", function (event) {   // have to use jQuery 
-        // clear prior data
-        var divGroceryList = document.getElementById("divGroceryListSubset");
-        while (divGroceryList.firstChild) {    // remove any old data so don't get duplicates
-            divGroceryList.removeChild(divGroceryList.firstChild);
-        };
-    });
+    // $(document).on("pagebeforeshow", "#ViewDetail", function (event) {   // have to use jQuery 
+    //     // clear prior data
+    //     var divGroceryList = document.getElementById("divGroceryListSubset");
+    //     while (divGroceryList.firstChild) {    // remove any old data so don't get duplicates
+    //         divGroceryList.removeChild(divGroceryList.firstChild);
+    //     };
+    // });
 
     // need one for our details page to fill in the info based on the passed in ID
-    $(document).on("pagebeforeshow", "#ViewDetail", function (event) {   // have to use jQuery 
-        //let arrayPointer = GetArrayPointer(localID);
-        document.getElementById("inputtedName").innerHTML = "The title is: " +groceryArray[arrayPointer].Name;
-        document.getElementById("inputtedQuantity").innerHTML = "Year released: " + groceryArray[arrayPointer].Quantity;
-        document.getElementById("inputtedCategory").innerHTML = "Genre: " + groceryArray[arrayPointer].Category;
-        document.getElementById("inputtedNote").innerHTML = "Leading Woman: " + groceryArray[arrayPointer].Note;
-    });
+    // $(document).on("pagebeforeshow", "#ViewDetail", function (event) {   // have to use jQuery 
+    //     //let arrayPointer = GetArrayPointer(localID);
+    //     document.getElementById("inputtedName").innerHTML = "The title is: " +groceryArray[arrayPointer].Name;
+    //     document.getElementById("inputtedQuantity").innerHTML = "Year released: " + groceryArray[arrayPointer].Quantity;
+    //     document.getElementById("inputtedCategory").innerHTML = "Genre: " + groceryArray[arrayPointer].Category;
+    //     document.getElementById("inputtedNote").innerHTML = "Leading Woman: " + groceryArray[arrayPointer].Note;
+    // });
  
 // end of page before show code *************************************************************************
-
 });  
 // end of wait until document has loaded event  *************************************************************************
 
@@ -144,11 +139,11 @@ function createList() {
 
     var ul = document.createElement('ul');
 
-    groceryArray.forEach(function (element,) {   // use handy array forEach method
+    groceryItemArray.forEach(function (element,) {   // use handy array forEach method
         var li = document.createElement('li');
         // adding a class name to each one as a way of creating a collection
         li.classList.add('inputtedName'); 
-        li.innerHTML = element.Name + ":" + element.Category ;
+        li.innerHTML = element.Name ;
         ul.appendChild(li);
     });
     divGroceryList.appendChild(ul)
@@ -190,7 +185,7 @@ function createListSubset(whichType) {
 
     var ul = document.createElement('ul');
 
-    groeryArray.forEach(function (element,) {
+    groceryItemArray.forEach(function (element,) {
         
         if (element.Category === whichType) {
             // use handy array forEach method
@@ -201,7 +196,7 @@ function createListSubset(whichType) {
             ul.appendChild(li);
         }
     });
-    divMovieList.appendChild(ul)
+    divGroceryList.appendChild(ul)
 
     // now we have the HTML done to display out list, 
     // next we make them active buttons
