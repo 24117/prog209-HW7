@@ -92,8 +92,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.location.href = "index.html#ListAll";
     });
 
-    document.getElementById("buttonSortItem").addEventListener("click", function () {
-        groceryItemArray.sort(dynamicSort("Item"));
+    document.getElementById("buttonSortName").addEventListener("click", function () {
+        groceryItemArray.sort(dynamicSort("Name"));
         createList();
         document.location.href = "index.html#ListAll";
     });
@@ -108,33 +108,29 @@ document.addEventListener("DOMContentLoaded", function () {
         createList();
     });
 
-    // $(document).on("pagebeforeshow", "#ViewDetail", function (event) {   // have to use jQuery 
-    //     // clear prior data
-    //     var divGroceryList = document.getElementById("divGroceryListSubset");
-    //     while (divGroceryList.firstChild) {    // remove any old data so don't get duplicates
-    //         divGroceryList.removeChild(divGroceryList.firstChild);
-    //     };
-    // });
-
     // need one for our details page to fill in the info based on the passed in ID
-    // $(document).on("pagebeforeshow", "#ViewDetail", function (event) {   // have to use jQuery 
-    //     //let arrayPointer = GetArrayPointer(localID);
-    //     document.getElementById("inputtedName").innerHTML = "The title is: " +groceryArray[arrayPointer].Name;
-    //     document.getElementById("inputtedQuantity").innerHTML = "Year released: " + groceryArray[arrayPointer].Quantity;
-    //     document.getElementById("inputtedCategory").innerHTML = "Genre: " + groceryArray[arrayPointer].Category;
-    //     document.getElementById("inputtedNote").innerHTML = "Leading Woman: " + groceryArray[arrayPointer].Note;
-    // });
+    $(document).on("pagebeforeshow", "#ViewDetail", function (event) {   // have to use jQuery 
+        let localID = document.getElementById("IDparmHere").innerHTML;
+        // console.log("localID: " + localID);
+        let arrayPointer = GetArrayPointer(localID);
+        // console.log("arrayPointer: " + arrayPointer);
+        // console.log("groceryItemArray[arrayPointer]: " + groceryItemArray[arrayPointer]);
+        // console.log("oneName: " + document.getElementById("oneName"));
+        document.getElementById("oneName").value = groceryItemArray[arrayPointer].Name;
+        document.getElementById("oneQuantity").value = groceryItemArray[arrayPointer].Quantity;
+        document.getElementById("oneCategory").value = groceryItemArray[arrayPointer].Category;
+        document.getElementById("oneNote").value = groceryItemArray[arrayPointer].Note;
+    });
  
 // end of page before show code *************************************************************************
 });  
 // end of wait until document has loaded event  *************************************************************************
 
-
 function createList() {
     // clear prior data
     var divGroceryList = document.getElementById("divGroceryList");
     while (divGroceryList.firstChild) {    // remove any old data so don't get duplicates
-        divGroceryList.removeChild(divGroceryList.firstChild);
+    divGroceryList.removeChild(divGroceryList.firstChild);
     };
 
     var ul = document.createElement('ul');
@@ -142,8 +138,11 @@ function createList() {
     groceryItemArray.forEach(function (element,) {   // use handy array forEach method
         var li = document.createElement('li');
         // adding a class name to each one as a way of creating a collection
-        li.classList.add('inputtedName'); 
-        li.innerHTML = element.Name ;
+        li.classList.add('oneGroceryItem'); 
+        // use the html5 "data-parm" to encode the ID of this particular data object
+        // that we are building an li from
+        li.setAttribute("data-parm", element.ID);
+        li.innerHTML = element.Name;
         ul.appendChild(li);
     });
     divGroceryList.appendChild(ul)
@@ -151,64 +150,37 @@ function createList() {
     // now we have the HTML done to display out list, 
     // next we make them active buttons
     // set up an event for each new li item, 
-    var liArray = document.getElementsByClassName("inputtedName");
+    var liArray = document.getElementsByClassName("oneGroceryItem");
     Array.from(liArray).forEach(function (element) {
         element.addEventListener('click', function () {
+        // get that data-parm we added for THIS particular li as we loop thru them
+        var parm = this.getAttribute("data-parm");  // passing in the record.Id
+        console.log("id: " + parm);
+        // get our hidden <p> and write THIS ID value there
+        document.getElementById("IDparmHere").innerHTML = parm;
+        // now jump to our page that will use that one item
         document.location.href = "index.html#ViewDetail";
         });
     });
 
 };
 
-function deleteItem(which) {
+
+function deleteGroceryItem(which) {
     console.log(which);
     let arrayPointer = GetArrayPointer(which);
-    groceryArray.splice(arrayPointer, 1);  // remove 1 element at index 
+    groceryItemArray.splice(arrayPointer, 1);  // remove 1 element at index 
 }
 
 // cycles thru the array to find the array element with a matching ID
 function GetArrayPointer(localID) {
-    for (let i = 0; i < groceryArray.length; i++) {
-        if (localID === groceryArray[i].ID) {
+    for (let i = 0; i < groceryItemArray.length; i++) {
+        if (localID === groceryItemArray[i].ID) {
             return i;
         }
     }
 }
-  
 
-function createListSubset(whichType) {
-    // clear prior data
-    var divGroceryList = document.getElementById("divGroceryListSubset");
-    while (divGroceryList.firstChild) {    // remove any old data so don't get duplicates
-        divGroceryList.removeChild(divGroceryList.firstChild);
-    };
-
-    var ul = document.createElement('ul');
-
-    groceryItemArray.forEach(function (element,) {
-        
-        if (element.Category === whichType) {
-            // use handy array forEach method
-            var li = document.createElement('li');
-            // adding a class name to each one as a way of creating a collection
-            li.classList.add('inputtedName');
-            li.innerHTML = element.Name + "  " + element.Category;
-            ul.appendChild(li);
-        }
-    });
-    divGroceryList.appendChild(ul)
-
-    // now we have the HTML done to display out list, 
-    // next we make them active buttons
-    // set up an event for each new li item, 
-    var liArray = document.getElementsByClassName("inputtedName");
-    Array.from(liArray).forEach(function (element) {
-        element.addEventListener('click', function () {
-            document.location.href = "index.html#ViewDetail";
-        });
-    });
-
-};
 
 /**
  *  https://ourcodeworld.com/articles/read/764/how-to-sort-alphabetically-an-array-of-objects-by-key-in-javascript

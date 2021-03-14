@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
   <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
   <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-  <script src="index.js"></script>
   <link rel="stylesheet" type="text/css" href="index.css">
   <link rel = "stylesheet" href ="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -143,7 +142,7 @@
           <div id="divGroceryList">
           </div>
           <input type="button" value="Sort By Category" id="buttonSortCategory" data-inline="true" class="center"/>
-          <input type="button" value="Sort By Item" id="buttonSortItem" data-inline="true" class="center"/>
+          <input type="button" value="Sort By Name" id="buttonSortName" data-inline="true" class="center"/>
         </div>
 
         <!--   page footer -->
@@ -170,11 +169,11 @@
         <div data-role="content" data-theme='c'>
           <div class="ui-field-contain">
             <label for="name" >Item Name:</label>
-            <input type="text" id="name" size="25" required maxlength = "25" value="egg"/>
+            <input type="text" id="oneName" size="25" required maxlength = "25"/>
           </div> 
           <div class="ui-field-contain">
             <label for="quantity">Quantity</label> 
-            <select name="quantity" id="quantity">
+            <select name="quantity" id="oneQuantity">
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -194,12 +193,12 @@
           </div> 
           <div class="ui-field-contain">
             <label for="category">Select a Category</label>
-            <select name="category" id="category">
+            <select name="category" id="oneCategory">
               <option value="Household">Household</option>
               <option value="Produce" >Produce</option>
               <option value="Frozen food">Frozen food</option>
               <option value="Beverages">Beverages</option>
-              <option value="Dairy"selected >Dairy</option>
+              <option value="Dairy" >Dairy</option>
               <option value="Bakery">Bakery</option>
               <option value="Meat">Meat</option>
               <option value="Dry canned food">Dry canned food</option>
@@ -208,10 +207,10 @@
           </div>
           <div class="ui-field-contain">
             <label for="note" >Note: </label> 
-            <textarea id="note" size="50" required maxlength= "50">organic cage-free brown eggs</textarea>
+            <textarea id="oneNote" size="50" required maxlength= "50"></textarea>
           </div>
           <input type="button" value="Save" id="buttonSave" data-inline="true" class="center"/>
-          <input type="button" value="Delete" id="buttonDelete" data-inline="true" class="center"/>
+          <input type="button" value="Delete" id="buttonDelete" data-inline="true" class="center" style="background: rgb(216, 11, 11)"/>
         </div>
 
 
@@ -222,7 +221,7 @@
       </div>
       </div>
       <!-- End of  page ------------------------------------------------------------------>      
-      <p id="IDparmHere" hidden>change1</p>  <!--hidden, a place to stash the user ID -->
+      <p id="IDparmHere" hidden>change1</p>  <!--hidden, a place to stash the groceryItem ID -->
     </body>
-    
+    <script src="index.js"></script>
     </html>
