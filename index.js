@@ -79,6 +79,12 @@ document.addEventListener("DOMContentLoaded", function () {
         selectedCategory = $('#category').val();
     });
 
+    document.getElementById("buttonSave").addEventListener("click", function () {
+        modifyGroceryItem(document.getElementById("IDparmHere").innerHTML);
+        createList();  // recreate li list after removing one
+        document.location.href = "index.html#ListAll";  // go back to movie list 
+    });
+
     document.getElementById("buttonDelete").addEventListener("click", function () {
         deleteGroceryItem(document.getElementById("IDparmHere").innerHTML);
         createList();  // recreate li list after removing one
@@ -170,6 +176,15 @@ function deleteGroceryItem(which) {
     console.log(which);
     let arrayPointer = GetArrayPointer(which);
     groceryItemArray.splice(arrayPointer, 1);  // remove 1 element at index 
+}
+
+function modifyGroceryItem(which) {
+    console.log(which);
+    let arrayPointer = GetArrayPointer(which);
+    groceryItemArray[arrayPointer].Name = document.getElementById("oneName").value;
+    groceryItemArray[arrayPointer].Quantity = document.getElementById("oneQuantity").value ;
+    groceryItemArray[arrayPointer].Category = document.getElementById("oneCategory").value;
+    groceryItemArray[arrayPointer].Note = document.getElementById("oneNote").value;
 }
 
 // cycles thru the array to find the array element with a matching ID
